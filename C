@@ -1,0 +1,38 @@
+#makeCacheMatrix is a list containing a function to set the value of the matrix, get the value of the matrix, set the value of the inverse and get the value of the inverse.
+
+makeCacheMatrix <- function(x = matrix()) {
+             m <- NULL
+             # Set the value of the matrix
+         set <- function(y) {
+       x <<- y
+    m <<- NULL
+            }
+    # Get the value of the matrix
+     get <- function() x
+    # Set the inverse of the matrix
+         setinverse<- function(inverse) m <<-inverse
+    # Get the inverse of the matrix
+  getinverse <- function() m
+  list(set = set, get = get,
+         setinverse = setinverse,
+  getinverse = getinverse)
+              
+        }
+
+
+ # The function cacheSolve calculates the inverse of the matrix created with the makeCacheMatrix function.
+
+ cacheSolve <- function(x, ...) {
+                   # it first checks to see if the reverse has already been calculated. If so, it get the reverse from the cache and skips the computation. 
+                            m <- x$getinverse()
+                  if (!is.null(m)) {
+                          message("getting cached inverse matrix")
+                                    return(m)
+                          # otherwise it Calculates the inverse of the matrix and set the value of the inverse in the cache via setinverse function
+                         } else {
+                                   m <- solve(x$get())
+                                   
+                                         x$setinverse(m)
+                            return(m)
+                                     }}
+                
